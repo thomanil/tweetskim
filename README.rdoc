@@ -24,8 +24,9 @@ timeline
     
 usage
 tweet-skim [usernames...]
---keep-unread
---show-all
+-k, --keep-unread
+-a, --show-all
+-i --inverse-order
         
 configure
 dotfile
