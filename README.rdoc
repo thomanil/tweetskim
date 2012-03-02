@@ -19,39 +19,38 @@ TODO
 == TODO
 
 two column presentation
-    mentions
-    timeline
+mentions
+timeline
     
 usage
-    tweet-skim [usernames...]
-        --keep-unread
-            by default, mark all as read after generating tweets correctly
-        --show-all
+tweet-skim [usernames...]
+--keep-unread
+--show-all
         
 configure
-    dotfile
-        config accounts
-        option: hide timeline, hide mentions
+dotfile
+config accounts
+option: hide timeline, hide mentions
         
 package and distribute as gem
 
 turn ascii repr into html presentation
-    generate nicely formatted html version in ~/.<APP>/last-generated
-    point browser to that
-    "mark all as read, go straight to browser
-    for multiple accounts: show them tabbed, concated or something else
-    super readable, greyscale, only gfx=avatars
-    Links to actual tweets to enable interaction using regular twitter web gui
-    make the design beautiful
-        CSS3 workthrough
-        Design & typography books workthrough
+generate nicely formatted html version in ~/.<APP>/last-generated
+point browser to that
+"mark all as read, go straight to browser
+for multiple accounts: show them tabbed, concated or something else
+super readable, greyscale, only gfx=avatars
+Links to actual tweets to enable interaction using regular twitter web gui
+make the design beautiful
+CSS3 workthrough
+Design & typography books workthrough
         
 mobile version
-    move timeline last read values to central location
-    mobile app
+move timeline last read values to central location
+mobile app
     
 web version
-    figure out way to "mark as read"
+figure out way to "mark as read"
     
 
 
