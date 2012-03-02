@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
-puts "YO"
+require "tweetskim"
+
+puts Tweetskim::First.new.trial
