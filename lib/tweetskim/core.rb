@@ -1,14 +1,11 @@
 # -*- encoding: utf-8 -*-
 
 module Tweetskim
-
   require 'rubygems'
   require 'twitter'
   require 'oauth'
     
   class TwitterAdapter
-    CONSUMER_KEY = "3oUZhYLZcaqqQePajIjnBg"
-    CONSUMER_SECRET = "mAYecEGPwy7BlkibFGHCACtY5x1Mm0YOvczxsll4OY"
     
     def trial 
      4
@@ -27,12 +24,17 @@ module Tweetskim
     end
 
 
+    CONSUMER_KEY = "3oUZhYLZcaqqQePajIjnBg"
+    CONSUMER_SECRET = "mAYecEGPwy7BlkibFGHCACtY5x1Mm0YOvczxsll4OY"
+    
     def authenticated_client
-      consumer_key = '3oUZhYLZcaqqQePajIjnBg'
-      consumer_secret = 'mAYecEGPwy7BlkibFGHCACtY5x1Mm0YOvczxsll4OY'
+      if user_tokens_stored?
+        user_token, user_secret = load_user_tokens
+      else
+        user_token, user_secret = oauth_pin_dance_for_token_and_secret
+        store_user_tokens(user_token, user_secret)
+      end
 
-      user_token, user_secret = song_and_dance_for_tokens
-      
       Twitter.configure do |config|
         config.consumer_key = CONSUMER_KEY
         config.consumer_secret = CONSUMER_SECRET
@@ -46,19 +48,18 @@ module Tweetskim
     end
 
     def oauth_pin_dance_for_token_and_secret
-      consumer_key = '3oUZhYLZcaqqQePajIjnBg'
-      consumer_secret = 'mAYecEGPwy7BlkibFGHCACtY5x1Mm0YOvczxsll4OY'
-      
       oauth_consumer = OAuth::Consumer.new(CONSUMER_KEY, CONSUMER_SECRET,
-                                     :site => 'http://api.twitter.com',
-                                     :request_endpoint => 'http://api.twitter.com',
-                                     :sign_in => true)
-
+                                           :site => 'http://api.twitter.com',
+                                           :request_token_path => '/oauth/request_token',
+                                           :access_token_path => '/oauth/access_token',
+                                           :authorize_path => '/oauth/authorize')
+      
       request_token = oauth_consumer.get_request_token
       rtoken  = request_token.token
       rsecret = request_token.secret
       
-      puts "Now visit the following URL:"
+      puts "You have to set up Twitter authentication the first time you use tweetskim."
+      puts "Please authenticate by following this URL:"
       puts request_token.authorize_url
       
       print "What was the PIN Twitter gave you? "
@@ -66,30 +67,31 @@ module Tweetskim
      
       OAuth::RequestToken.new(oauth_consumer, rtoken, rsecret)
       access_token = request_token.get_access_token(:oauth_verifier => pin)
-
-      # TODO store these after first time
-      token = access_token.token
-      secret = access_token.secret
       
-      return token, secret
+      return access_token.token, access_token.secret
     end
 
-    
     def mentions
       client = authenticated_client
       mentions = client.mentions("thomanil")[0...10].map { |tweet| tweet.text }
       return mentions
     end
-
-    def store_user_access_token
-      # store in ~/.tweetskim/token
-    end
-
-    def load_user_access_token
-      # store in ~/.tweetskim/token
-    end
-      
-
     
+    TOKEN_FILE_PATH = File.expand_path "~/.tweetskim/tokens"
+    
+    def user_tokens_stored?
+      File.exists? TOKEN_FILE_PATH
+    end
+    
+    def store_user_tokens(token, secret)
+      `mkdir ~/.tweetskim/`
+       `echo "#{token}___#{secret}" > #{TOKEN_FILE_PATH}`
+    end
+
+    def load_user_tokens
+      token, secret = `cat #{TOKEN_FILE_PATH}`.split "___"
+      return token.chomp, secret.chomp
+    end
+        
   end
 end
