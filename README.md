@@ -1,27 +1,29 @@
 
-== DESCRIPTION:
+DESCRIPTION:
+===========
 
 A stripped down, command line-centered way to read tweets
 efficiently. Combine with unix tools and pipelines - read tweets
 however you want.
 
 
-== USAGE:
+USAGE:
+======
 
-tweetskim
+        tweetskim
 
 Prints tweets to stdout: one column for your timeline, one for
 mentions of your account.
 
 
-
-
-== PREREQUISITES:
+PREREQUISITES:
+==============
 
 You must have some version of Ruby and RubyGems installed. That's it.
 
 
-== INSTALL:
+INSTALL:
+========
 
 gem install tweetskim
 
@@ -29,13 +31,9 @@ The first time you run it, simply run it by itself: 'tweetskim' - the
 program will help you set up OAuth/pin authentication with Twitter.
 
 
-== FEATURES/PROBLEMS:
+TODO:
+=====
 
-TODO
-
-
-== TODO
-    
 usage - add usage text, handle options
 tweet-skim [username]
 -h, --help
@@ -64,7 +62,8 @@ CSS3 workthrough
 Design & typography books workthrough
 
 
-== LICENSE:
+LICENSE:
+========
 
 (The MIT License)
 
