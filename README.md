@@ -36,7 +36,7 @@ TODO:
 
 
 options
-*******
+----
 
 add usage text, handle options
 
@@ -62,7 +62,7 @@ add usage text, handle options
 
 
 multiple accounts
-*****************
+------
 handle explicit, different username options
 
 split out authorization in separate, explicit step- tweetskim authorize USER
