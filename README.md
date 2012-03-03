@@ -3,7 +3,9 @@ DESCRIPTION:
 ===========
 
 A stripped down, command line-centered way to read tweets
-efficiently. Combine with unix tools and pipelines - read tweets
+efficiently.
+
+Combine with unix tools and pipelines - read tweets
 however you want.
 
 
@@ -13,8 +15,8 @@ USAGE:
 `tweetskim`
 
 Prints tweets to stdout: one column for your timeline, one for
-mentions of your account. Use it like any other command line tool -
-pipe to `less` to page output, concat it to file (`tweetskim >
+mentions of your account. Use it like any other command line tool:
+page the output (`less tweetskim`), concat it to file (`tweetskim >
 tweets.txt`), and so on.
 
 
@@ -29,8 +31,8 @@ INSTALL:
 
 `gem install tweetskim`
 
-(The program will help you set up OAuth/pin authentication with Twitter
-the first time you run it.)
+The program will help you set up OAuth/pincode authentication with Twitter
+the first time you run it.
 
 
 TODO:
@@ -40,7 +42,9 @@ TODO:
 options
 ----
 
-add usage text, handle options
+add usage text
+
+-v, --version 
 
 -h, --help
 
