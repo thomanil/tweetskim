@@ -14,7 +14,7 @@ USAGE:
 
 `tweetskim [options]`
 
-Prints tweets to stdout, either as plain lines, more readable column
+Prints the tweet timeline to stdout, either as plain lines, more readable column
 or extra-readable single html page.
 
 Use it like any other command line tool: page the output (`less
