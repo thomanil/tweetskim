@@ -24,7 +24,7 @@ timeline
     
 usage
 tweet-skim [usernames...]
--k, --keep-unread
+-m, --mark-all-read
 -a, --show-all
 -i --inverse-order
         

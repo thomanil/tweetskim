@@ -24,7 +24,7 @@ class TestTweetskim < Test::Unit::TestCase
 
 #    tweets = tweet_str.map { |str| Twitter::Status.new :text => str }
     
-    puts @t.tweet_column( @t.timeline[0...100], 40)
+    puts @t.tweet_column( @t.timeline, 40)
   end
   
 end
