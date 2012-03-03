@@ -14,6 +14,7 @@ OptionParser.new do |o|
   o.on("-l", "--line-formatted", "Output tweets as plain lines") { |b| options[:line_formatted] = b }
   o.on("-m", "--mark-all-read", "Mark everything up to now as read") { |b| options[:mark_all_read] = b }
   o.on("-n N", "--last-n-tweets N", "Show last N tweets") { |n| options[:tweet_no] = n }
+  o.on("-o MODE", "--output-mode MODE", "Output as 'lines', 'column' or 'html'") { |mode| options[:output_mode] = mode }
   o.on("-t", "--html-output", "Output as pretty html page") { |b| options[:html_output] = b }
   o.on("-u USER", "--user USER", "Which twitter user I am. Example: tweetskim -u thomanil") { |u| options[:user] = u }
   o.on("-v", "--version", "Spit out version") { |b| options[:version] = b }
@@ -29,12 +30,24 @@ adapter = Tweetskim::TwitterAdapter.new
 formatter = Tweetskim::Formatter.new
 
 timeline = adapter.timeline(:count => DEFAULT_MAX_TWEETS)
-mentions = adapter.mentions(:count => DEFAULT_MAX_TWEETS)
 
-timeline_col = formatter.column timeline, {:width => DEFAULT_COLUMN_WIDTH}
-mentions_col = formatter.column mentions, {:width => DEFAULT_COLUMN_WIDTH}
 
-timeline_padded = formatter.pad timeline_col, DEFAULT_COLUMN_WIDTH
-mentions_padded = formatter.pad mentions_col, DEFAULT_COLUMN_WIDTH
+output_mode = options[:output_mode]
 
-puts formatter.pasted_columns([timeline_padded, mentions_padded])
+if !output_mode || output_mode == "lines"
+  result = formatter.lines(timeline, options)
+elsif output_mode == "column"
+  result = formatter.column(timeline, {:width => DEFAULT_COLUMN_WIDTH})
+elsif output_mode == "html"
+  raise "Not yet supported: html output mode"
+else
+  puts "Invalid output mode."
+  puts 0
+  exit
+end
+
+puts result
+
+
+
+

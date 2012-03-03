@@ -7,7 +7,12 @@ module Tweetskim
 
 
   class Formatter
-    
+
+    def lines(tweets, options = {})
+      tweet_texts = tweets.reverse.map {|tweet| "--#{tweet.user.name}-- #{tweet.text}\n"}
+      lines = tweet_texts.join("")
+    end
+      
     def column(tweets, options = {})
       tweet_texts = tweets.reverse.map {|tweet| "--#{tweet.user.name}-- #{tweet.text}"}
       reflowed_tweets = tweet_texts.map {|tweet| `echo "#{tweet}" | fmt -w #{options[:width]}` }
@@ -22,20 +27,7 @@ module Tweetskim
       end
       padded_lines.join ""
     end
-      
-    def pasted_columns(columns)
-      col_tmp_files = []
-
-      columns.each_with_index do |col, i|
-        filepath = "/tmp/tweetskim-col#{i}.txt"
-        `rm #{filepath}; echo "#{col}" > #{filepath}`
-        col_tmp_files.push filepath
-      end
-
-      col_tmp_files = col_tmp_files.join " "
-      `paste #{col_tmp_files}`.chomp "\t\n"
-    end
-      
+ 
   end
 
   

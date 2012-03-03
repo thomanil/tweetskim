@@ -57,13 +57,11 @@ options
 
 -h, --help
 
--l, --line-formatted
-
 -m, --mark-all-read
 
--n, --last-n-tweets=N
+-n, --last-n-tweets N
 
--t, --html-output
+-o, --output-mode lines|column|html
 
 -u, --user
 

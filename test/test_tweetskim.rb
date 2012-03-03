@@ -18,7 +18,7 @@ class TestTweetskim < Test::Unit::TestCase
   def test_column_creation
     tweets = [t("Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."), t("Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "), t("Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")]
     
-    expected = <<FORMATTED
+    expected = <<COLUMN
 --Mock User-- Excepteur sint occaecat
 cupidatat non proident, sunt in culpa
 qui officia deserunt mollit anim id
@@ -34,12 +34,27 @@ cillum dolore eu fugiat nulla pariatur.
 quis nostrud exercitation ullamco
 laboris nisi ut aliquip ex ea commodo
 consequat.
-FORMATTED
+COLUMN
 
     actual = @f.column(tweets, {:width => 40})
         
     assert_equal expected, actual
   end
+
+  def test_line_creation
+    tweets = [t("Ut enimad minim veniam, quis nostrud."), t("Duis aute irure dolor in reprehenderit"), t("Excepteur sint occaecat cupidatat non proident")]
+
+    expected = <<LINES
+--Mock User-- Excepteur sint occaecat cupidatat non proident
+--Mock User-- Duis aute irure dolor in reprehenderit
+--Mock User-- Ut enimad minim veniam, quis nostrud.
+LINES
+
+    actual = @f.lines(tweets);
+
+    assert_equal expected, actual
+  end
+
 
   def test_whitespace_padding
 
@@ -64,28 +79,6 @@ a
 COL
        
     assert_equal expected, @f.pad(col, 6)
-  end
-  
-
-  def test_column_pasting
-    first_col = <<COL
-aaa
-aaa
-aaa
-COL
-    second_col = <<COL
-bbb
-bbb
-bbb
-COL
-
-    expected = <<COL
-aaa\tbbb
-aaa\tbbb
-aaa\tbbb
-COL
-
-    assert_equal expected, @f.pasted_columns([first_col, second_col])
   end
   
 end
