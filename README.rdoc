@@ -3,20 +3,25 @@
 
 A stripped down, command line-centered way to read tweets efficiently.
 
+
 == USAGE:
 
 TODO
 
+
 == INSTALL:
 
-TODO
+gem install tweetskim
 
 
 == FEATURES/PROBLEMS:
 
 TODO
 
+
 == TODO
+
+add dependencies to gem spec
 
 two column presentation: add mentions
     
@@ -49,7 +54,6 @@ mobile app
 web version
 figure out way to post "mark as read"
     
-
 
 == LICENSE:
 
