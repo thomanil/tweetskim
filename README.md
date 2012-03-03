@@ -12,7 +12,7 @@ however you want.
 USAGE:
 ======
 
-`tweetskim [options] [username]`
+`tweetskim [options]`
 
 Prints tweets to stdout: one column for your timeline, one for
 mentions of your account. Use it like any other command line tool:
@@ -64,6 +64,8 @@ options
 -n, --last-n-tweets=N
 
 -t, --html-output
+
+-u, --user
 
 -v, --version 
 

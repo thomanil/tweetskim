@@ -4,25 +4,22 @@ require "tweetskim"
 require "optparse"
 
 
+options = {}
+
 OptionParser.new do |o|
-  o.on('-a') { |b| $show_all = b }
-  o.on('-c') { |b| $count_new = b }
-  o.on('-e') { |b| $mentions = b }
-  o.on('-i') { |b| $inverse_order = b }
-  o.on('-l') { |b| $line_formatted = b }
-  o.on('-m') { |b| $mark_all_read = b }
-  o.on('-n N') { |n| $tweet_no = n }
-  o.on('-t') { |b| $html_output = b }
-  o.on('-v') { |b| $version = b }
-  o.on('-f FILENAME') { |filename| $filename = filename }
-  o.on('-h') { puts o; exit }
+  o.on("-a", "--show-all", "Show all tweets (max 300 tweets)") { |b| options[:show_all] = b }
+  o.on("-c", "--count-new", "Count new tweets since last marked read") { |b| options[:count_new] = b }
+  o.on("-e", "--mentions", "Show mentions instead of timeline") { |b| options[:mentions] = b }
+  o.on("-i", "--inverse-order", "Inverse/reverse ordered tweets") { |b| options[:inverse_order] = b }
+  o.on("-l", "--line-formatted", "Output tweets as plain lines") { |b| options[:line_formatted] = b }
+  o.on("-m", "--mark-all-read", "Mark everything up to now as read") { |b| options[:mark_all_read] = b }
+  o.on("-n N", "--last-n-tweets N", "Show last N tweets") { |n| options[:tweet_no] = n }
+  o.on("-t", "--html-output", "Output as pretty html page") { |b| options[:html_output] = b }
+  o.on("-u USER", "--user USER", "Which twitter user I am. Example: tweetskim -u thomanil") { |u| options[:user] = u }
+  o.on("-v", "--version", "Spit out version") { |b| options[:version] = b }
+  o.on("-h", "--help", "Help page") { puts o; exit }
   o.parse!
 end
-
-puts "got here"
-
-
-#p :quiet => $quiet, :interactive => $interactive, :filename => $filename
 
 
 DEFAULT_MAX_TWEETS = 100
