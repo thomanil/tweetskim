@@ -4,50 +4,53 @@ require "tweetskim"
 require "optparse"
 
 
-options = {}
+def parse_options
+  options = {}
 
-OptionParser.new do |o|
-  o.on("-a", "--show-all", "Show all tweets (max 300 tweets)") { |b| options[:show_all] = b }
-  o.on("-c", "--count-new", "Count new tweets since last marked read") { |b| options[:count_new] = b }
-  o.on("-e", "--mentions", "Show mentions instead of timeline") { |b| options[:mentions] = b }
-  o.on("-i", "--inverse-order", "Inverse/reverse ordered tweets") { |b| options[:inverse_order] = b }
-  o.on("-l", "--line-formatted", "Output tweets as plain lines") { |b| options[:line_formatted] = b }
-  o.on("-m", "--mark-all-read", "Mark everything up to now as read") { |b| options[:mark_all_read] = b }
-  o.on("-n N", "--last-n-tweets N", "Show last N tweets") { |n| options[:tweet_no] = n }
-  o.on("-o MODE", "--output-mode MODE", "Output as 'lines', 'column' or 'html'") { |mode| options[:output_mode] = mode }
-  o.on("-t", "--html-output", "Output as pretty html page") { |b| options[:html_output] = b }
-  o.on("-u USER", "--user USER", "Which twitter user I am. Example: tweetskim -u thomanil") { |u| options[:user] = u }
-  o.on("-v", "--version", "Spit out version") { |b| options[:version] = b }
-  o.on("-h", "--help", "Help page") { puts o; exit }
-  o.parse!
+  OptionParser.new do |o|
+    o.on("-a", "--show-all", "Show all tweets (max 300 tweets)") { |b| options[:show_all] = b }
+    o.on("-c", "--count-new", "Count new tweets since last marked read") { |b| options[:count_new] = b }
+    o.on("-e", "--mentions", "Show mentions instead of timeline") { |b| options[:mentions] = b }
+    o.on("-i", "--inverse-order", "Inverse/reverse ordered tweets") { |b| options[:inverse_order] = b }
+    o.on("-l", "--line-formatted", "Output tweets as plain lines") { |b| options[:line_formatted] = b }
+    o.on("-m", "--mark-all-read", "Mark everything up to now as read") { |b| options[:mark_all_read] = b }
+    o.on("-n N", "--last-n-tweets N", "Show last N tweets") { |n| options[:tweet_no] = n }
+    o.on("-o MODE", "--output-mode MODE", "Output as 'lines', 'column' or 'html'") { |mode| options[:output_mode] = mode }
+    o.on("-t", "--html-output", "Output as pretty html page") { |b| options[:html_output] = b }
+    o.on("-u USER", "--user USER", "Which twitter user I am. Example: tweetskim -u thomanil") { |u| options[:user] = u }
+    o.on("-v", "--version", "Spit out version") { |b| options[:version] = b }
+    o.on("-h", "--help", "Help page") { puts o; exit }
+    o.parse!
+  end
+
+  return options
+end
+
+def fetch_tweets(options = {})
+  adapter = Tweetskim::TwitterAdapter.new
+  tweets = adapter.timeline(:count => 100)
+end
+
+def write_tweets_to_stdout(tweets, options = {})
+  formatter = Tweetskim::Formatter.new
+  output_mode = options[:output_mode]
+
+  if !output_mode || output_mode == "lines"
+    result = formatter.lines(tweets, options)
+  elsif output_mode == "column"
+    result = formatter.column(tweets, {:width => 40})
+  elsif output_mode == "html"
+    raise "Not yet supported: html output mode"
+  else
+    puts "Invalid output mode."
+    puts 0
+    exit
+  end
+  
+  puts result
 end
 
 
-DEFAULT_MAX_TWEETS = 100
-DEFAULT_COLUMN_WIDTH = 40
-
-adapter = Tweetskim::TwitterAdapter.new
-formatter = Tweetskim::Formatter.new
-
-timeline = adapter.timeline(:count => DEFAULT_MAX_TWEETS)
-
-
-output_mode = options[:output_mode]
-
-if !output_mode || output_mode == "lines"
-  result = formatter.lines(timeline, options)
-elsif output_mode == "column"
-  result = formatter.column(timeline, {:width => DEFAULT_COLUMN_WIDTH})
-elsif output_mode == "html"
-  raise "Not yet supported: html output mode"
-else
-  puts "Invalid output mode."
-  puts 0
-  exit
-end
-
-puts result
-
-
-
-
+options = parse_options
+tweets = fetch_tweets(options)
+write_tweets_to_stdout(tweets, options)
