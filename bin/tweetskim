@@ -2,4 +2,5 @@
 
 require "tweetskim"
 
-puts Tweetskim::First.new.trial
+tweet_adapter = Tweetskim::TwitterAdapter.new
+puts tweet_adapter.tweet_column(tweet_adapter.timeline[0...100], 40)

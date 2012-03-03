@@ -11,22 +11,32 @@ module Tweetskim
      4
     end
 
-    # Note: use status.id_str as id, not raw id
+   
     
-    def mentions_since(tweet_id)
-      ["Lorem ipsum dolor sit amet",
-       "consectetur adipisicing elit"]
+    # TODO call for each user in config
+    # implicit for the user authenticated in client. Different user =
+    # different client
+    def mentions(options = {})
+      client = authenticated_client # 
+      mentions = client.mentions(options)
     end
 
-    def timeline_since(tweet_id)
-      ["@Lorem ipsum dolor sit amet",
-       "@consectetur adipisicing elit"]
+    def timeline(options = {}) 
+      client = authenticated_client
+      timeline = client.home_timeline(options)
     end
 
 
+    def tweet_column(tweets, column_width)
+      tweet_texts = tweets.reverse.map {|tweet| "--#{tweet.user.name}-- #{tweet.text}"}
+      reflowed_tweets = tweet_texts.map {|tweet| `echo "#{tweet}" | fmt -w #{column_width}` }
+      reflowed_tweets.join "\n\n"
+    end
+    
     CONSUMER_KEY = "3oUZhYLZcaqqQePajIjnBg"
     CONSUMER_SECRET = "mAYecEGPwy7BlkibFGHCACtY5x1Mm0YOvczxsll4OY"
-    
+
+    # TODO call for specific user
     def authenticated_client
       if user_tokens_stored?
         user_token, user_secret = load_user_tokens
@@ -46,7 +56,7 @@ module Tweetskim
       client.verify_credentials
       return client
     end
-
+    
     def oauth_pin_dance_for_token_and_secret
       oauth_consumer = OAuth::Consumer.new(CONSUMER_KEY, CONSUMER_SECRET,
                                            :site => 'http://api.twitter.com',
@@ -71,12 +81,7 @@ module Tweetskim
       return access_token.token, access_token.secret
     end
 
-    def mentions
-      client = authenticated_client
-      mentions = client.mentions("thomanil")[0...10].map { |tweet| tweet.text }
-      return mentions
-    end
-    
+    #TODO store tokens for each user
     TOKEN_FILE_PATH = File.expand_path "~/.tweetskim/tokens"
     
     def user_tokens_stored?
