@@ -12,13 +12,13 @@ however *you* want.
 USAGE:
 ======
 
+`tweetskim [options]`
+
 Prints the tweet timeline to stdout, either as plain lines, more readable column
 or extra-readable single html page.
 
 Use it like any other command line tool: page the output (`tweetskim |
 less`), concat it to file (`tweetskim > tweets.txt`), search for specific stuff (`tweetskim | grep conference`) and so on.
-
-`Usage: tweetskim [options]
 
 Options:
 
@@ -32,7 +32,7 @@ Options:
 
 -o, --output-mode MODE           Output as 'lines', 'column' or 'html'
 
--v, --version                    Current version`
+-v, --version                    Current version
 
 
 PREREQUISITES:
