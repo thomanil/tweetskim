@@ -1,7 +1,9 @@
 
 == DESCRIPTION:
 
-A stripped down, command line-centered way to read tweets efficiently.
+A stripped down, command line-centered way to read tweets
+efficiently. Combine with unix tools and pipelines - read tweets
+however you want.
 
 
 == USAGE:
@@ -9,9 +11,17 @@ A stripped down, command line-centered way to read tweets efficiently.
 TODO
 
 
+== PREREQUISITES:
+
+You must have some version of Ruby and RubyGems installed. That's it.
+
+
 == INSTALL:
 
 gem install tweetskim
+
+The first time you run it, simply run it by itself: 'tweetskim' - the
+program will help you set up OAuth/pin authentication with Twitter.
 
 
 == FEATURES/PROBLEMS:
@@ -21,23 +31,26 @@ TODO
 
 == TODO
 
-add dependencies to gem spec
+add direct link to bottom of each tweet
+
+color names of tweeters and @names blue
 
 two column presentation: add mentions
     
 usage
-tweet-skim [usernames...]
+tweet-skim [username]
 -m, --mark-all-read
+-l, --last-n-tweets N
 -a, --show-all
 -i --inverse-order
 -h --html-output
 
 configure
 dotfile
-config accounts, set tokens per account
+config accounts, set tokens per account (if username)
 option: hide timeline, hide mentions
 
-generate nicely formatted html version in ~/.<APP>/last-generated
+generate nicely formatted html version
 point browser to that
 "mark all as read, go straight to browser
 for multiple accounts: show them tabbed, concated or something else
@@ -46,14 +59,7 @@ Links to actual tweets to enable interaction using regular twitter web gui
 make the design beautiful
 CSS3 workthrough
 Design & typography books workthrough
-        
-mobile version
-move timeline last read values to central location
-mobile app
-    
-web version
-figure out way to post "mark as read"
-    
+
 
 == LICENSE:
 

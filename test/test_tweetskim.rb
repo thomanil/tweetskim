@@ -5,26 +5,44 @@ class TestTweetskim < Test::Unit::TestCase
   def setup
     @t = Tweetskim::TwitterAdapter.new
   end
-  
-  def test_something
-    assert_equal 4, @t.trial
-  end
 
-  def test_twitter_integration_get_mentions
-    assert_equal 10, @t.mentions[0...10].count
+  def t(text)
+    status = Twitter::Status.new
+    status.stubs(:text).returns text
+    user = Twitter::User.new
+    user.stubs(:name).returns "Mock User"
+    status.stubs(:user).returns user
+    return status
   end
-
-  def test_twitter_integration_get_timeline
-    assert_equal 10, @t.timeline[0...10].count
-  end
-
   
   def test_column_creation
-    tweet_str = ["Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ", "Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ", "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."]
-
-#    tweets = tweet_str.map { |str| Twitter::Status.new :text => str }
+    tweets = [t("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "), t("Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."), t("Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "), t("Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")]
     
-    puts @t.tweet_column( @t.timeline, 40)
+    expected = <<FORMATTED
+[1;34mMock User[0m Excepteur sint
+occaecat cupidatat non proident, sunt
+in culpa qui officia deserunt mollit
+anim id est laborum.
+
+
+[1;34mMock User[0m Duis aute irure
+dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat
+nulla pariatur.
+
+
+[1;34mMock User[0m Ut enimad minim
+veniam, quis nostrud exercitation
+ullamco laboris nisi ut aliquip ex ea
+commodo consequat.
+
+
+[1;34mMock User[0m Lorem ipsum dolor
+sit amet, consectetur adipisicing elit,
+sed do eiusmod tempor incididunt ut
+labore et dolore magna aliqua.
+FORMATTED
+    assert_equal expected, Tweetskim::Formatter.column(tweets, 40)
   end
   
 end

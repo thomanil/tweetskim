@@ -3,4 +3,6 @@
 require "tweetskim"
 
 tweet_adapter = Tweetskim::TwitterAdapter.new
-puts tweet_adapter.tweet_column(tweet_adapter.timeline(:count => 100), 40)
+timeline = tweet_adapter.timeline(:count => 100)
+
+puts Tweetskim::Formatter.column(tweet_adapter.timeline(:count => 100), 40)

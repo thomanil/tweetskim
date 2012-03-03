@@ -22,5 +22,6 @@ Gem::Specification.new do |s|
   # s.add_development_dependency "rspec"
   s.add_runtime_dependency "twitter"
   s.add_runtime_dependency "oauth"
-  
+
+  s.add_development_dependency "mocha"
 end
