@@ -41,6 +41,32 @@ FORMATTED
     assert_equal expected, actual
   end
 
+  def test_whitespace_padding
+
+    col = <<COL
+aaaaaa
+aaaaa
+aaaa
+aaa
+aa
+a
+
+COL
+    
+    expected = <<COL
+aaaaaa
+aaaaa 
+aaaa  
+aaa   
+aa    
+a     
+      
+COL
+       
+    assert_equal expected, @f.pad(col, 6)
+  end
+  
+
   def test_column_pasting
     first_col = <<COL
 aaa

@@ -15,4 +15,7 @@ mentions = adapter.mentions(:count => DEFAULT_MAX_TWEETS)
 timeline_col = formatter.column timeline, {:width => DEFAULT_COLUMN_WIDTH}
 mentions_col = formatter.column mentions, {:width => DEFAULT_COLUMN_WIDTH}
 
-puts formatter.pasted_columns([timeline_col, mentions_col])
+timeline_padded = formatter.pad timeline_col, DEFAULT_COLUMN_WIDTH
+mentions_padded = formatter.pad mentions_col, DEFAULT_COLUMN_WIDTH
+
+puts formatter.pasted_columns([timeline_padded, mentions_padded])

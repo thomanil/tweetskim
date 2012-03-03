@@ -11,9 +11,23 @@ module Tweetskim
     def column(tweets, options = {})
       tweet_texts = tweets.reverse.map {|tweet| "--#{tweet.user.name}-- #{tweet.text}"}
       reflowed_tweets = tweet_texts.map {|tweet| `echo "#{tweet}" | fmt -w #{options[:width]}` }
-      reflowed_tweets.join "\n\n"
+      column = reflowed_tweets.join "\n\n"
     end
 
+    def pad(column, width)
+      padded_lines = []
+      column.each_line do |line|
+        padded_line = line.gsub "\n", ""
+        line_width = padded_line.size
+        if line_width < width
+          missing_spaces = width - line_width
+          missing_spaces.times { padded_line += " " }
+        end
+        padded_lines.push(padded_line+"\n")
+      end
+      padded_lines.join ""
+    end
+      
     def pasted_columns(columns)
       col_tmp_files = []
 
