@@ -4,6 +4,7 @@ require "tweetskim"
 
 
 DEFAULT_MAX_TWEETS = 100
+DEFAULT_COLUMN_WIDTH = 40
 
 adapter = Tweetskim::TwitterAdapter.new
 formatter = Tweetskim::Formatter.new
@@ -11,7 +12,7 @@ formatter = Tweetskim::Formatter.new
 timeline = adapter.timeline(:count => DEFAULT_MAX_TWEETS)
 mentions = adapter.mentions(:count => DEFAULT_MAX_TWEETS)
 
-timeline_col = formatter.column timeline
-mentions_col = formatter.column mentions
+timeline_col = formatter.column timeline, {:width => DEFAULT_COLUMN_WIDTH}
+mentions_col = formatter.column mentions, {:width => DEFAULT_COLUMN_WIDTH}
 
 puts formatter.pasted_columns([timeline_col, mentions_col])

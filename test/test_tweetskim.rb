@@ -36,9 +36,9 @@ laboris nisi ut aliquip ex ea commodo
 consequat.
 FORMATTED
 
-    actual = @f.column(tweets, 40)
+    actual = @f.column(tweets, {:width => 40})
         
-    assert_equal expected, @f.column(tweets, 40)
+    assert_equal expected, actual
   end
 
   def test_column_pasting
