@@ -33,8 +33,6 @@ TODO
 
 add direct link to bottom of each tweet
 
-color names of tweeters and @names blue
-
 two column presentation: add mentions
     
 usage
@@ -42,13 +40,13 @@ tweet-skim [username]
 -m, --mark-all-read
 -l, --last-n-tweets N
 -a, --show-all
--i --inverse-order
--h --html-output
+-i, --inverse-order
+-h, --html-output
+-hm, --hide-mentions
+-ht, --hide-timeline
 
-configure
-dotfile
-config accounts, set tokens per account (if username)
-option: hide timeline, hide mentions
+set tokens per account (if username)
+
 
 generate nicely formatted html version
 point browser to that

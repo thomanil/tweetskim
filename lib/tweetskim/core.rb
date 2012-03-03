@@ -9,7 +9,7 @@ module Tweetskim
   class Formatter
     
     def self.column(tweets, column_width)
-      tweet_texts = tweets.reverse.map {|tweet| "\\033[1;34m#{tweet.user.name}\\033[0m #{tweet.text}"}
+      tweet_texts = tweets.reverse.map {|tweet| "--#{tweet.user.name}-- #{tweet.text}"}
       reflowed_tweets = tweet_texts.map {|tweet| `echo "#{tweet}" | fmt -w #{column_width}` }
       reflowed_tweets.join "\n\n"
     end
