@@ -3,4 +3,4 @@
 require "tweetskim"
 
 tweet_adapter = Tweetskim::TwitterAdapter.new
-puts tweet_adapter.tweet_column(tweet_adapter.timeline(:count => 50), 40)
+puts tweet_adapter.tweet_column(tweet_adapter.timeline(:count => 100), 40)
