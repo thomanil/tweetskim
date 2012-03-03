@@ -60,6 +60,18 @@ mark-read
 Support -m mark-as-read flag, to toggle "I've read all up till now,
 next time only show new stuff"
 
+
+show status identifier
+----
+
+option to prefix tweets with their status id and/or direct link (all modes)
+
+
+prettify column-output
+---
+Color coding, layout tweaks etc
+
+
 multiple accounts
 ------
 

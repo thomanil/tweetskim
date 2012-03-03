@@ -33,10 +33,10 @@ def fetch_tweets(options = {})
     tweets = adapter.timeline(:count => options[:last_n_tweets] || 300)
   end
 
-   if options[:inverse_order]
-     tweets = tweets.reverse
-   end
-
+  if options[:inverse_order]
+    tweets = tweets.reverse
+  end
+  
   return tweets
 end
 
@@ -51,8 +51,7 @@ def write_tweets_to_stdout(tweets, options = {})
   elsif output_mode == "html"
     puts "Html mode not done yet."; exit
   else
-    puts "Invalid output mode."
-    exit
+    puts "Invalid output mode."; exit
   end
   
   puts result
