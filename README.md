@@ -12,12 +12,17 @@ however you want.
 USAGE:
 ======
 
-`tweetskim`
+`tweetskim [options] [username]`
 
 Prints tweets to stdout: one column for your timeline, one for
 mentions of your account. Use it like any other command line tool:
 page the output (`less tweetskim`), concat it to file (`tweetskim >
 tweets.txt`), and so on.
+
+options
+----
+
+
 
 
 PREREQUISITES:
@@ -42,38 +47,35 @@ TODO:
 options
 ----
 
-add usage text
-
--v, --version 
-
--h, --help
-
--m, --mark-all-read
-
--l=N, --last-n-tweets=N
-
 -a, --show-all
+
+-c, --count-new
+
+-e, --mentions
 
 -i, --inverse-order
 
+-h, --help
+
+-l, --line-formatted
+
+-m, --mark-all-read
+
+-n, --last-n-tweets=N
+
 -t, --html-output
 
--hm, --hide-mentions
-
--ht, --hide-timeline
-
--x=USER, --exclude=USER
-
--o=USER, --only=USER
+-v, --version 
 
 
 multiple accounts
 ------
+
 handle explicit, different username options
 
-split out authorization in separate, explicit step- tweetskim authorize USER
+split out authorization in separate, explicit step: tweetskim authorize USER
 
-set tokens per account (if username)
+set tokens per account (if username given)
 
 
 LICENSE:

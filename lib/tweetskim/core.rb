@@ -44,6 +44,7 @@ module Tweetskim
     # TODO call for each user in config
     # implicit for the user authenticated in client. Different user =
     # different client
+    
     def mentions(options = {})
       client = authenticated_client # 
       mentions = client.mentions(options)

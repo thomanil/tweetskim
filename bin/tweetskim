@@ -1,6 +1,27 @@
 #!/usr/bin/env ruby
 
 require "tweetskim"
+require "optparse"
+
+
+OptionParser.new do |o|
+  o.on('-a') { |b| $show_all = b }
+  o.on('-c') { |b| $count_new = b }
+  o.on('-e') { |b| $mentions = b }
+  o.on('-i') { |b| $inverse_order = b }
+  o.on('-l') { |b| $line_formatted = b }
+  o.on('-m') { |b| $mark_all_read = b }
+  o.on('-n N') { |n| $tweet_no = n }
+  o.on('-t') { |b| $html_output = b }
+  o.on('-v') { |b| $version = b }
+  o.on('-f FILENAME') { |filename| $filename = filename }
+  o.on('-h') { puts o; exit }
+  o.parse!
+end
+
+
+
+#p :quiet => $quiet, :interactive => $interactive, :filename => $filename
 
 
 DEFAULT_MAX_TWEETS = 100
