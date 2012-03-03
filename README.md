@@ -25,10 +25,10 @@ You must have some version of Ruby and RubyGems installed. That's it.
 INSTALL:
 ========
 
-gem install tweetskim
+`gem install tweetskim`
 
-The first time you run it, simply run it by itself: 'tweetskim' - the
-program will help you set up OAuth/pin authentication with Twitter.
+(The program will help you set up OAuth/pin authentication with Twitter
+the first time you run it.)
 
 
 TODO:
