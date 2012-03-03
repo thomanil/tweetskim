@@ -5,8 +5,8 @@ DESCRIPTION:
 A stripped down, command line-centered way to read tweets
 efficiently.
 
-Combine with unix tools and pipelines - read tweets
-however you want.
+Combine with unix tools and pipelines to read tweets
+however *you* want.
 
 
 USAGE:
@@ -14,42 +14,16 @@ USAGE:
 
 `tweetskim [options]`
 
-Prints tweets to stdout: one column for your timeline, one for
-mentions of your account. Use it like any other command line tool:
-page the output (`less tweetskim`), concat it to file (`tweetskim >
-tweets.txt`), and so on.
+Prints tweets to stdout, either as plain lines, more readable column
+or extra-readable single html page.
 
-options
-----
-
-
-
-
-PREREQUISITES:
-==============
-
-You must have some version of Ruby and RubyGems installed. That's it.
-
-
-INSTALL:
-========
-
-`gem install tweetskim`
-
-The program will help you set up OAuth/pincode authentication with Twitter
-the first time you run it.
-
-
-TODO:
-=====
-
+Use it like any other command line tool: page the output (`less
+tweetskim`), concat it to file (`tweetskim > tweets.txt`), search for specific stuff (`tweetskim | grep conference`) and so on.
 
 options
 ----
 
 -a, --show-all
-
--c, --count-new
 
 -e, --mentions
 
@@ -68,6 +42,30 @@ options
 -v, --version 
 
 
+PREREQUISITES:
+==============
+
+You must have some version of Ruby and RubyGems installed first. That's it.
+
+
+INSTALL:
+========
+
+`gem install tweetskim`
+
+The program will help you set up OAuth/pincode authentication with Twitter
+the first time you run it.
+
+
+TODO:
+=====
+
+
+options
+----
+
+Finish options enumerated above
+
 multiple accounts
 ------
 
@@ -76,6 +74,11 @@ handle explicit, different username options
 split out authorization in separate, explicit step: tweetskim authorize USER
 
 set tokens per account (if username given)
+
+html output mode
+-----
+
+output single-page html version of tweets, do pretty and readable stuff here
 
 
 LICENSE:
