@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/test_helper.rb'
 class TestTweetskim < Test::Unit::TestCase
 
   def setup
-    @t = Tweetskim::TwitterAdapter.new
+    @f = Tweetskim::Formatter.new
   end
 
   def t(text)
@@ -36,9 +36,30 @@ laboris nisi ut aliquip ex ea commodo
 consequat.
 FORMATTED
 
-    actual = Tweetskim::Formatter.column(tweets, 40)
+    actual = @f.column(tweets, 40)
         
-    assert_equal expected, Tweetskim::Formatter.column(tweets, 40)
+    assert_equal expected, @f.column(tweets, 40)
+  end
+
+  def test_column_pasting
+    first_col = <<COL
+aaa
+aaa
+aaa
+COL
+    second_col = <<COL
+bbb
+bbb
+bbb
+COL
+
+    expected = <<COL
+aaa\tbbb
+aaa\tbbb
+aaa\tbbb
+COL
+
+    assert_equal expected, @f.pasted_columns([first_col, second_col])
   end
   
 end

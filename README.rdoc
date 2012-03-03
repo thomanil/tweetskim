@@ -31,22 +31,24 @@ TODO
 
 == TODO
 
-add direct link to bottom of each tweet
-
 two column presentation: add mentions
     
-usage
+usage - add usage text, handle options
 tweet-skim [username]
+-h, --help
 -m, --mark-all-read
--l, --last-n-tweets N
+-l=N, --last-n-tweets=N
 -a, --show-all
 -i, --inverse-order
--h, --html-output
+-t, --html-output
 -hm, --hide-mentions
 -ht, --hide-timeline
+-x=USER, --exclude=USER
+-o=USER, --only=USER
 
+handle explicit, different username options
+split out authorization in separate, explicit step- tweetskim authorize USER
 set tokens per account (if username)
-
 
 generate nicely formatted html version
 point browser to that

@@ -8,11 +8,25 @@ module Tweetskim
 
   class Formatter
     
-    def self.column(tweets, column_width)
+    def column(tweets, column_width, options = {})
       tweet_texts = tweets.reverse.map {|tweet| "--#{tweet.user.name}-- #{tweet.text}"}
       reflowed_tweets = tweet_texts.map {|tweet| `echo "#{tweet}" | fmt -w #{column_width}` }
       reflowed_tweets.join "\n\n"
     end
+
+    def pasted_columns(columns)
+      col_tmp_files = []
+
+      columns.each_with_index do |col, i|
+        filepath = "/tmp/tweetskim-col#{i}.txt"
+        `rm #{filepath}; echo "#{col}" > #{filepath}`
+        col_tmp_files.push filepath
+      end
+
+      col_tmp_files = col_tmp_files.join " "
+      `paste #{col_tmp_files}`.chomp "\t\n"
+    end
+      
   end
 
   
@@ -70,7 +84,7 @@ module Tweetskim
       puts "Please authenticate by following this URL:"
       puts request_token.authorize_url
       
-      print "What was the PIN Twitter gave you? "
+      print "What was the PIN that Twitter gave you? "
       pin = gets.chomp
      
       OAuth::RequestToken.new(oauth_consumer, rtoken, rsecret)
