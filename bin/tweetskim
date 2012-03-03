@@ -19,6 +19,7 @@ OptionParser.new do |o|
   o.parse!
 end
 
+puts "got here"
 
 
 #p :quiet => $quiet, :interactive => $interactive, :filename => $filename
