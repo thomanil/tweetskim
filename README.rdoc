@@ -18,24 +18,20 @@ TODO
 
 == TODO
 
-two column presentation
-mentions
-timeline
+two column presentation: add mentions
     
 usage
 tweet-skim [usernames...]
 -m, --mark-all-read
 -a, --show-all
 -i --inverse-order
-        
+-h --html-output
+
 configure
 dotfile
-config accounts
+config accounts, set tokens per account
 option: hide timeline, hide mentions
-        
-package and distribute as gem
 
-turn ascii repr into html presentation
 generate nicely formatted html version in ~/.<APP>/last-generated
 point browser to that
 "mark all as read, go straight to browser
@@ -51,7 +47,7 @@ move timeline last read values to central location
 mobile app
     
 web version
-figure out way to "mark as read"
+figure out way to post "mark as read"
     
 
 
