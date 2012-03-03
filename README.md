@@ -13,41 +13,9 @@ USAGE:
 `tweetskim`
 
 Prints tweets to stdout: one column for your timeline, one for
-mentions of your account: 
-
-` > tweetskim
-
---Alex Payne-- An Martinez.             	--Jo Ring Giske-- @thomanil velkommen   
-                                        	i snobbeklubben                         
-                                        	                                        
-                                        	                                        
-                                        	--Bodil Stokke-- @thomanil It is. I     
-                                        	have. :) @augustl                       
-                                        	                                        
---Evan Light-- What he said. RT         	                                        
-@doktahahpah: Thanks to the organizers, 	--Elisabeth Irgens-- @thomanil Jeg tror 
-attendees, and many new friends at      	ikke det skal så mye til. Også bare     
-#roa2012. Looking forward to next year! 	helt grei presskanne daglig over tid    
-                                        	gjør at sutlete traktekaffe blir sur    
-                                        	og vond.                                
---Evan Light-- Grateful that the        	                                        
-organizers facilitated coming out       	                                        
-and humbled that my talk was so         	--Rolf Rander Næss-- @thomanil Ingen    
-well received.  Thank you all very      	av delene. Rammen var dynamiske språk   
-much. #roa2012                          	og jeg ville demonstrere at de gamle    
-                                        	er eldst. Men jeg har lyst til å se     
-                                        	på clojure.                             
---Evan Light-- Realized that            	
-#roa2012 is the first west coast        	
-conference I've spoken at much less     	
-attended! Surprising after so many      	
-trips to SFO. #roa2012                  	
-                                        	
-                                        	
---Daniel Bogan-- My niece, who is 4,    	
-via Skype: BACON AND EGGS AND SAUSAGES! 	
-`
-
+mentions of your account. Use it like any other command line tool -
+pipe to `less` to page output, concat it to file (`tweetskim >
+tweets.txt`), and so on.
 
 
 PREREQUISITES:
