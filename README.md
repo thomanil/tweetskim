@@ -46,10 +46,11 @@ TODO:
 =====
 
 
-options
+mark-read
 ----
 
-Finish options enumerated above
+Support -m mark-as-read flag, to toggle "I've read all up till now,
+next time only show new stuff"
 
 multiple accounts
 ------
