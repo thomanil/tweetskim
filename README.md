@@ -12,34 +12,19 @@ however *you* want.
 USAGE:
 ======
 
-`tweetskim [options]`
+`Usage: tweetskim [options]`
+    -e, --mentions                   Show mentions instead of timeline
+    -i, --inverse-order              Inverse/reverse ordered tweets
+    -h, --help                       Help page
+    -n, --last-n-tweets N            Show only the last N tweets
+    -o, --output-mode MODE           Output as 'lines', 'column' or 'html'
+    -v, --version                    Current version
 
 Prints the tweet timeline to stdout, either as plain lines, more readable column
 or extra-readable single html page.
 
-Use it like any other command line tool: page the output (`less
-tweetskim`), concat it to file (`tweetskim > tweets.txt`), search for specific stuff (`tweetskim | grep conference`) and so on.
-
-options
-----
-
--a, --show-all
-
--e, --mentions
-
--i, --inverse-order
-
--h, --help
-
--m, --mark-all-read
-
--n, --last-n-tweets N
-
--o, --output-mode lines|column|html
-
--u, --user
-
--v, --version 
+Use it like any other command line tool: page the output (`tweetskim |
+less`), concat it to file (`tweetskim > tweets.txt`), search for specific stuff (`tweetskim | grep conference`) and so on.
 
 
 PREREQUISITES:
