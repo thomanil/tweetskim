@@ -10,7 +10,7 @@ however you want.
 USAGE:
 ======
 
-        tweetskim
+`tweetskim`
 
 Prints tweets to stdout: one column for your timeline, one for
 mentions of your account.
@@ -34,32 +34,40 @@ program will help you set up OAuth/pin authentication with Twitter.
 TODO:
 =====
 
-usage - add usage text, handle options
-tweet-skim [username]
+
+options
+*******
+
+add usage text, handle options
+
 -h, --help
+
 -m, --mark-all-read
+
 -l=N, --last-n-tweets=N
+
 -a, --show-all
+
 -i, --inverse-order
+
 -t, --html-output
+
 -hm, --hide-mentions
+
 -ht, --hide-timeline
+
 -x=USER, --exclude=USER
+
 -o=USER, --only=USER
 
-handle explicit, different username options
-split out authorization in separate, explicit step- tweetskim authorize USER
-set tokens per account (if username)
 
-generate nicely formatted html version
-point browser to that
-"mark all as read, go straight to browser
-for multiple accounts: show them tabbed, concated or something else
-super readable, greyscale, only gfx=avatars
-Links to actual tweets to enable interaction using regular twitter web gui
-make the design beautiful
-CSS3 workthrough
-Design & typography books workthrough
+multiple accounts
+*****************
+handle explicit, different username options
+
+split out authorization in separate, explicit step- tweetskim authorize USER
+
+set tokens per account (if username)
 
 
 LICENSE:
