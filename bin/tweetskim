@@ -28,9 +28,9 @@ def fetch_tweets(options = {})
   adapter = Tweetskim::TwitterAdapter.new
 
   if options[:mentions]
-    tweets = adapter.mentions(:count => options[:last_n_tweets] || 300)
+    tweets = adapter.mentions(:count => options[:last_n_tweets] || 15)
   else
-    tweets = adapter.timeline(:count => options[:last_n_tweets] || 300)
+    tweets = adapter.timeline(:count => options[:last_n_tweets] || 15)
   end
 
   if options[:inverse_order]
@@ -60,4 +60,5 @@ end
 
 options = parse_options
 tweets = fetch_tweets(options)
+#TODO create result first, send that. Dont put errors in stdout.
 write_tweets_to_stdout(tweets, options)

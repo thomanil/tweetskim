@@ -20,6 +20,9 @@ or extra-readable single html page.
 Use it like any other command line tool: page the output (`tweetskim |
 less`), concat it to file (`tweetskim > tweets.txt`), search for specific stuff (`tweetskim | grep conference`) and so on.
 
+Default behavior if you don't pass any options: Print out last 10
+tweets in your timeline, one on each line.
+
 Options:
 
 -e, --mentions:                  Show mentions instead of timeline
@@ -28,7 +31,7 @@ Options:
 
 -h, --help                       Help page
 
--n, --last-n-tweets N            Show only the last N tweets
+-n, --last-n-tweets N            Show the last N tweets in your timeline
 
 -o, --output-mode MODE           Output as 'lines', 'column' or 'html'
 
