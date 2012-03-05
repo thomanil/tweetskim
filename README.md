@@ -70,11 +70,6 @@ show status identifier
 option to prefix tweets with their status id and/or direct link (all modes)
 
 
-prettify column-output
----
-Color coding, layout tweaks etc
-
-
 multiple accounts
 ------
 

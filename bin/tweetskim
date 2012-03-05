@@ -47,7 +47,7 @@ def write_tweets_to_stdout(tweets, options = {})
   if !output_mode || output_mode == "lines"
     result = formatter.lines(tweets, options)
   elsif output_mode == "column"
-    result = formatter.column(tweets, {:width => 40})
+    result = formatter.column(tweets, {:width => 60})
   elsif output_mode == "html"
     puts "Html mode not done yet."; exit
   else

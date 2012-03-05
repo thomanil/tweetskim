@@ -7,14 +7,13 @@ module Tweetskim
 
 
   class Formatter
-
     def lines(tweets, options = {})
       tweet_texts = tweets.reverse.map {|tweet| "--#{tweet.user.name}-- #{tweet.text}\n"}
       lines = tweet_texts.join("")
     end
       
     def column(tweets, options = {})
-      tweet_texts = tweets.reverse.map {|tweet| "--#{tweet.user.name}-- #{tweet.text}"}
+      tweet_texts = tweets.reverse.map {|tweet| "--\\033[1;34m#{tweet.user.name}\\033[0m-- #{tweet.text}"}
       reflowed_tweets = tweet_texts.map {|tweet| `echo "#{tweet}" | fmt -w #{options[:width]}` }
       column = reflowed_tweets.join "\n\n"
     end
@@ -27,18 +26,61 @@ module Tweetskim
       end
       padded_lines.join ""
     end
- 
   end
+
+
+  class Settings
+    SETTINGS_TEMPLATE = {:token => nil,
+      :secret => nil,
+      :last_read_status => nil}
+
+    SETTINGS_FILE_PATH = File.expand_path "~/.tweetskim/default-account"
+
+    def load
+      yml_str = `cat #{SETTINGS_FILE_PATH}`
+      YAML::load(yml_str) || SETTINGS_TEMPLATE
+    end
+
+    def save(settings)
+      if !Dir[" ~/.tweetskim/"].empty?
+         `mkdir ~/.tweetskim/`
+      end
+      yml_str = YAML::dump(settings)
+      `echo "#{yml_str}" > #{SETTINGS_FILE_PATH}`
+    end
+    
+    def user_credentials_stored?
+      if File.exists? SETTINGS_FILE_PATH
+        settings = load
+        return (settings[:token] && !settings[:token].empty? &&
+                settings[:secret] && !settings[:secret].empty?)
+      else
+        false
+      end
+    end
+    
+    def save_credentials(token, secret)
+      settings = load
+      settings[:token] = token
+      settings[:secret] = secret
+      save settings
+    end
+
+    def load_credentials
+      settings = load
+      return settings[:token], settings[:secret]
+    end
+  end
+
 
   
   class TwitterAdapter
-      
     # TODO call for each user in config
     # implicit for the user authenticated in client. Different user =
     # different client
     
     def mentions(options = {})
-      client = authenticated_client # 
+      client = authenticated_client 
       mentions = client.mentions(options)
     end
 
@@ -52,11 +94,13 @@ module Tweetskim
 
     # TODO call for specific user
     def authenticated_client
-      if user_tokens_stored?
-        user_token, user_secret = load_user_tokens
+      settings = Tweetskim::Settings.new
+      
+      if settings.user_credentials_stored?
+        user_token, user_secret = settings.load_credentials
       else
         user_token, user_secret = oauth_pin_dance_for_token_and_secret
-        store_user_tokens(user_token, user_secret)
+        settings.save_credentials(user_token, user_secret)
       end
 
       Twitter.configure do |config|
@@ -93,24 +137,7 @@ module Tweetskim
       access_token = request_token.get_access_token(:oauth_verifier => pin)
       
       return access_token.token, access_token.secret
-    end
-
-    #TODO store tokens for each user
-    TOKEN_FILE_PATH = File.expand_path "~/.tweetskim/default.tokens"
-    
-    def user_tokens_stored?
-      File.exists? TOKEN_FILE_PATH
-    end
-    
-    def store_user_tokens(token, secret)
-      `mkdir ~/.tweetskim/`
-       `echo "#{token}___#{secret}" > #{TOKEN_FILE_PATH}`
-    end
-
-    def load_user_tokens
-      token, secret = `cat #{TOKEN_FILE_PATH}`.split "___"
-      return token.chomp, secret.chomp
-    end
-        
+    end   
   end
+  
 end

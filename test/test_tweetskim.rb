@@ -18,26 +18,10 @@ class TestTweetskim < Test::Unit::TestCase
   def test_column_creation
     tweets = [t("Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."), t("Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "), t("Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")]
     
-    expected = <<COLUMN
---Mock User-- Excepteur sint occaecat
-cupidatat non proident, sunt in culpa
-qui officia deserunt mollit anim id
-est laborum.
-
-
---Mock User-- Duis aute irure dolor in
-reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur.
-
-
---Mock User-- Ut enimad minim veniam,
-quis nostrud exercitation ullamco
-laboris nisi ut aliquip ex ea commodo
-consequat.
-COLUMN
+    expected = "--\e[1;34mMock User\e[0m-- Excepteur sint\noccaecat cupidatat non proident, sunt\nin culpa qui officia deserunt mollit\nanim id est laborum.\n\n\n--\e[1;34mMock User\e[0m-- Duis aute\nirure dolor in reprehenderit in\nvoluptate velit esse cillum dolore eu\nfugiat nulla pariatur.\n\n\n--\e[1;34mMock User\e[0m-- Ut enimad\nminim veniam, quis nostrud exercitation\nullamco laboris nisi ut aliquip ex ea\ncommodo consequat.\n"
 
     actual = @f.column(tweets, {:width => 40})
-        
+    
     assert_equal expected, actual
   end
 
@@ -80,6 +64,14 @@ COL
        
     assert_equal expected, @f.pad(col, 6)
   end
+
+  def test_settings_persistence
+    
+
+    
+  end
+
+
   
 end
 
