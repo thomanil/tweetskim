@@ -8,7 +8,7 @@ def parse_options
   options = {}
 
   OptionParser.new do |o|
-    o.on("-a", "--show-all", "Show all tweets, not just unread ones (max 300)") { |b| options[:show_all] = b } 
+    o.on("-a", "--show-all", "Show all tweets, not just unread ones (max 200)") { |b| options[:show_all] = b } 
     o.on("-e", "--mentions", "Show mentions instead of timeline") { |b| options[:mentions] = b }
     o.on("-i", "--inverse-order", "Inverse/reverse ordered tweets") { |b| options[:inverse_order] = b }
     o.on("-h", "--help", "Help page") { puts o; exit }
@@ -34,7 +34,7 @@ def fetch_tweets(options = {})
     since_id = settings.load_last_read_status_id
   end
 
-  tweet_count = options[:last_n_tweets] || 15
+  tweet_count = options[:last_n_tweets] || 10
   if options[:mentions]
     tweets = adapter.mentions(tweet_count, since_id)
   else

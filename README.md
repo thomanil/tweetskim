@@ -25,11 +25,15 @@ tweets in your timeline, one on each line.
 
 Options:
 
+-a, --show-all                   Show all tweets (200max), not just unread tweets
+
 -e, --mentions:                  Show mentions instead of timeline
 
 -i, --inverse-order              Inverse/reverse ordered tweets
 
 -h, --help                       Help page
+
+-m, --mark-all-read              Mark everything up to now as read
 
 -n, --last-n-tweets N            Show the last N tweets in your timeline
 
@@ -55,13 +59,6 @@ the first time you run it.
 
 TODO:
 =====
-
-
-mark-read
-----
-
-Support -m mark-as-read flag, to toggle "I've read all up till now,
-next time only show new stuff"
 
 
 show status identifier
