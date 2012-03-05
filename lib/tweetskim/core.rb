@@ -32,19 +32,22 @@ module Tweetskim
   class Settings
     SETTINGS_TEMPLATE = {:token => nil,
       :secret => nil,
-      :last_read_status => nil}
+      :last_read_status_id => "0"}
 
     SETTINGS_FILE_PATH = File.expand_path "~/.tweetskim/default-account"
 
+    def initialize
+      if !Dir[" ~/.tweetskim/"].empty?
+        `mkdir ~/.tweetskim/`
+      end
+    end
+    
     def load
       yml_str = `cat #{SETTINGS_FILE_PATH}`
       YAML::load(yml_str) || SETTINGS_TEMPLATE
     end
 
     def save(settings)
-      if !Dir[" ~/.tweetskim/"].empty?
-         `mkdir ~/.tweetskim/`
-      end
       yml_str = YAML::dump(settings)
       `echo "#{yml_str}" > #{SETTINGS_FILE_PATH}`
     end
@@ -70,6 +73,18 @@ module Tweetskim
       settings = load
       return settings[:token], settings[:secret]
     end
+
+    def load_last_read_status_id
+      settings = load
+      return settings[:last_read_status_id]
+    end
+
+    def save_last_read_status_id(id)
+      settings = load
+      settings[:last_read_status_id] = id
+      save settings
+    end
+    
   end
 
 
@@ -79,14 +94,14 @@ module Tweetskim
     # implicit for the user authenticated in client. Different user =
     # different client
     
-    def mentions(options = {})
+    def mentions(tweet_count, since_id)
       client = authenticated_client 
-      mentions = client.mentions(options)
+      mentions = client.mentions({:count => tweet_count.to_i, :since_id => since_id.to_i})
     end
 
-    def timeline(options = {}) 
+    def timeline(tweet_count, since_id) 
       client = authenticated_client
-      timeline = client.home_timeline(options)
+      timeline = client.home_timeline({:count => tweet_count.to_i, :since_id => since_id.to_i})
     end
     
     CONSUMER_KEY = "3oUZhYLZcaqqQePajIjnBg"
@@ -130,7 +145,7 @@ module Tweetskim
       puts "Please authenticate by following this URL:"
       puts request_token.authorize_url
       
-      print "What was the PIN that Twitter gave you? "
+      puts "What was the PIN that Twitter gave you? "
       pin = gets.chomp
      
       OAuth::RequestToken.new(oauth_consumer, rtoken, rsecret)

@@ -8,11 +8,11 @@ def parse_options
   options = {}
 
   OptionParser.new do |o|
-   #TODO o.on("-a", "--show-all", "Show all tweets, not just unread ones (max 300)") { |b| options[:show_all] = b } 
+    o.on("-a", "--show-all", "Show all tweets, not just unread ones (max 300)") { |b| options[:show_all] = b } 
     o.on("-e", "--mentions", "Show mentions instead of timeline") { |b| options[:mentions] = b }
     o.on("-i", "--inverse-order", "Inverse/reverse ordered tweets") { |b| options[:inverse_order] = b }
     o.on("-h", "--help", "Help page") { puts o; exit }
-   #TODO  o.on("-m", "--mark-all-read", "Mark everything up to now as read") { |b| options[:mark_all_read] = b }
+    o.on("-m", "--mark-all-read", "Mark everything up to now as read") { |b| options[:mark_all_read] = b }
     o.on("-n N", "--last-n-tweets N", "Show only the last N tweets") { |n| options[:last_n_tweets] = n }
     o.on("-o MODE", "--output-mode MODE", "Output as 'lines', 'column' or 'html'") { |mode| options[:output_mode] = mode }
    #TODO  o.on("-u USER", "--user USER", "Which twitter user I am. Example: tweetskim -u thomanil") { |u| options[:user] = u }
@@ -24,21 +24,35 @@ def parse_options
   return options
 end
 
+
 def fetch_tweets(options = {})
+  settings = Tweetskim::Settings.new
   adapter = Tweetskim::TwitterAdapter.new
 
+  since_id = "111111"
+  if !options[:show_all]
+    since_id = settings.load_last_read_status_id
+  end
+
+  tweet_count = options[:last_n_tweets] || 15
   if options[:mentions]
-    tweets = adapter.mentions(:count => options[:last_n_tweets] || 15)
+    tweets = adapter.mentions(tweet_count, since_id)
   else
-    tweets = adapter.timeline(:count => options[:last_n_tweets] || 15)
+    tweets = adapter.timeline(tweet_count, since_id)
   end
 
   if options[:inverse_order]
     tweets = tweets.reverse
   end
   
+  last_tweet = tweets.sort { |t| t.id }.last
+  if options[:mark_all_read] && last_tweet
+    settings.save_last_read_status_id(last_tweet.id)
+  end
+  
   return tweets
 end
+
 
 def write_tweets_to_stdout(tweets, options = {})
   formatter = Tweetskim::Formatter.new
