@@ -32,17 +32,20 @@ module Tweetskim
   class Settings
     SETTINGS_TEMPLATE = {:token => nil,
       :secret => nil,
-      :last_read_status_id => "0"}
+      :last_read_status_id => "111111"}
 
     SETTINGS_FILE_PATH = File.expand_path "~/.tweetskim/default-account"
 
     def initialize
-      if !Dir[" ~/.tweetskim/"].empty?
-        `mkdir ~/.tweetskim/`
+      if !Dir[" ~/.tweetskim"].empty?
+        `mkdir ~/.tweetskim`
       end
     end
     
     def load
+      if !File.exists? SETTINGS_FILE_PATH
+        `touch #{SETTINGS_FILE_PATH}`
+      end
       yml_str = `cat #{SETTINGS_FILE_PATH}`
       YAML::load(yml_str) || SETTINGS_TEMPLATE
     end

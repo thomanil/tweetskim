@@ -40,12 +40,12 @@ def fetch_tweets(options = {})
   else
     tweets = adapter.timeline(tweet_count, since_id)
   end
-
+  last_tweet = tweets.first
+  
   if options[:inverse_order]
     tweets = tweets.reverse
   end
   
-  last_tweet = tweets.sort { |t| t.id }.last
   if options[:mark_all_read] && last_tweet
     settings.save_last_read_status_id(last_tweet.id)
   end
@@ -74,5 +74,4 @@ end
 
 options = parse_options
 tweets = fetch_tweets(options)
-#TODO create result first, send that. Dont put errors in stdout.
 write_tweets_to_stdout(tweets, options)
