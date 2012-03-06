@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Tweetskim::VERSION
   s.authors     = ["Thomas Kjeldahl Nilsson"]
   s.email       = ["thomas@kjeldahlnilsson.net"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/thomanil/tweetskim"
   s.summary     = %q{A stripped down CLI utility for reading tweets}
-  s.description = %q{Usage: tweetskim [username]}
+  s.description = %q{Usage: tweetskim [options]}
 
   s.rubyforge_project = "tweetskim"
 
