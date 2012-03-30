@@ -5,39 +5,6 @@ module Tweetskim
   require 'twitter'
   require 'oauth'
 
-
-  class Formatter
-    def lines(tweets, options = {})
-      tweet_texts = tweets.reverse.map {|tweet| "--#{tweet.user.name}-- #{text(tweet)}\n"}
-      lines = tweet_texts.join("")
-    end
-      
-    def column(tweets, options = {})
-      tweet_texts = tweets.reverse.map {|tweet| "--\\033[1;34m#{tweet.user.name}\\033[0m-- #{text(tweet)}"}
-      reflowed_tweets = tweet_texts.map {|tweet| `echo "#{tweet}" | fmt -w #{options[:width]}` }
-      column = reflowed_tweets.join "\n\n"
-    end
-
-    def pad(column, width)
-      padded_lines = []
-      column.each_line do |line|
-        chopped_line = line.chop
-        padded_lines.push `printf "%-#{width}s\n" "#{chopped_line}"`        
-      end
-      padded_lines.join ""
-    end
-
-    def text(tweet)
-      if tweet.retweeted_status
-        "RT @#{tweet.retweeted_status.user.screen_name}: #{tweet.retweeted_status.text}"
-      else
-        tweet.text
-      end
-    end
-      
-  end
-
-
   class Settings
     SETTINGS_TEMPLATE = {:token => nil,
       :secret => nil,
@@ -167,5 +134,41 @@ module Tweetskim
       return access_token.token, access_token.secret
     end   
   end
+  
+  
+  class Formatter
+    def lines(tweets, options = {})
+      tweet_texts = tweets.reverse.map {|tweet| "--#{tweet.user.name}-- #{text(tweet)}\n"}
+      lines = tweet_texts.join("")
+    end
+      
+    def column(tweets, options = {})
+      tweet_texts = tweets.reverse.map {|tweet| "--\\033[1;34m#{tweet.user.name}\\033[0m-- #{text(tweet)}"}
+      reflowed_tweets = tweet_texts.map {|tweet| `echo "#{tweet}" | fmt -w #{options[:width]}` }
+      column = reflowed_tweets.join "\n\n"
+    end
+
+    def html(tweets, options = {})
+     
+    end
+    
+    def pad(column, width)
+      padded_lines = []
+      column.each_line do |line|
+        chopped_line = line.chop
+        padded_lines.push `printf "%-#{width}s\n" "#{chopped_line}"`        
+      end
+      padded_lines.join ""
+    end
+
+    def text(tweet)
+      if tweet.retweeted_status
+        "RT @#{tweet.retweeted_status.user.screen_name}: #{tweet.retweeted_status.text}"
+      else
+        tweet.text
+      end
+    end
+  end
+
   
 end

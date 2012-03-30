@@ -14,7 +14,7 @@ def parse_options
     o.on("-h", "--help", "Help page") { puts o; exit }
     o.on("-m", "--mark-all-read", "Mark everything up to now as read") { |b| options[:mark_all_read] = b }
     o.on("-n N", "--last-n-tweets N", "Show only the last N tweets") { |n| options[:last_n_tweets] = n }
-    o.on("-o MODE", "--output-mode MODE", "Output as 'lines', 'column' or 'html'") { |mode| options[:output_mode] = mode }
+    o.on("-l", "--html-output", "Output as html") { |b| options[:html_output] = true}
    #TODO  o.on("-u USER", "--user USER", "Which twitter user I am. Example: tweetskim -u thomanil") { |u| options[:user] = u }
     o.on("-v", "--version", "Spit out version") { |b| puts Tweetskim::VERSION; exit }
 
@@ -56,16 +56,11 @@ end
 
 def write_tweets_to_stdout(tweets, options = {})
   formatter = Tweetskim::Formatter.new
-  output_mode = options[:output_mode]
 
-  if !output_mode || output_mode == "lines"
-    result = formatter.lines(tweets, options)
-  elsif output_mode == "column"
-    result = formatter.column(tweets, {:width => 60})
-  elsif output_mode == "html"
-    puts "Html mode not done yet."; exit
+  if options[:html_output] # Print lines to stdout
+    result = formatter.html(tweets, options)
   else
-    puts "Invalid output mode."; exit
+    result = formatter.lines(tweets, options)
   end
   
   puts result
