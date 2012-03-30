@@ -27,7 +27,7 @@ Options:
 
 -a, --show-all                   Show all tweets (200max), not just unread tweets
 
--e, --mentions:                  Show mentions instead of timeline
+-e, --mentions                   Show mentions instead of timeline
 
 -i, --inverse-order              Inverse/reverse ordered tweets
 
@@ -37,7 +37,7 @@ Options:
 
 -n, --last-n-tweets N            Show the last N tweets in your timeline
 
--o, --output-mode MODE           Output as 'lines', 'column' or 'html'
+-l, --html-output                Output tweets as more readable html file
 
 -v, --version                    Current version
 
@@ -61,12 +61,6 @@ TODO:
 =====
 
 
-show status identifier
-----
-
-option to prefix tweets with their status id and/or direct link (all modes)
-
-
 multiple accounts
 ------
 
@@ -75,11 +69,6 @@ handle explicit, different username options
 split out authorization in separate, explicit step: tweetskim authorize USER
 
 set tokens per account (if username given)
-
-html output mode
------
-
-output single-page html version of tweets, do pretty and readable stuff here
 
 
 LICENSE:
