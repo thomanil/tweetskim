@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "twitter"
   s.add_runtime_dependency "oauth"
   s.add_runtime_dependency "OptionParser"
+  s.add_runtime_dependency "launchy"
   
   s.add_development_dependency "mocha"
 end

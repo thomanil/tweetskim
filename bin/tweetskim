@@ -24,7 +24,6 @@ def parse_options
   return options
 end
 
-
 def fetch_tweets(options = {})
   settings = Tweetskim::Settings.new
   adapter = Tweetskim::TwitterAdapter.new
@@ -53,20 +52,25 @@ def fetch_tweets(options = {})
   return tweets
 end
 
+require 'launchy'
+def show_in_browser(html_body)  
+  File.open "/tmp/tweets.html", "w" do |filebody|
+    filebody.write(html_body)
+  end    
+  Launchy.open("/tmp/tweets.html")
+end
 
-def write_tweets_to_stdout(tweets, options = {})
+def output_tweets(tweets, options = {})
   formatter = Tweetskim::Formatter.new
-
-  if options[:html_output] # Print lines to stdout
-    result = formatter.html(tweets, options)
+  if options[:html_output] 
+    show_in_browser(formatter.html(tweets, options))
   else
-    result = formatter.lines(tweets, options)
+    puts formatter.lines(tweets, options)
   end
-  
-  puts result
 end
 
 
+# Run it
 options = parse_options
 tweets = fetch_tweets(options)
-write_tweets_to_stdout(tweets, options)
+output_tweets(tweets, options)
