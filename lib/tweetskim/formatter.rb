@@ -20,6 +20,8 @@ module Tweetskim
     def htmlize(tweet)
       text = text(tweet).gsub('\n', '<br/>')
       "<div class='tweet'><h1>#{tweet.user.name} <span class='time'>#{time(tweet)}</span></h1><p>#{text}<p></div>"
+      # TODO a ref for links
+      text = text.gsub(/http/, '**\1**')
     end
 
     def time(tweet)
