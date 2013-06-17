@@ -10,12 +10,14 @@ module Tweetskim
     SETTINGS_FILE_PATH = File.expand_path "~/.tweetskim/default-account"
 
     require "fileutils"
-    
+
     def initialize
       FileUtils.mkdir_p(File.expand_path("~/.tweetskim"))
       FileUtils.touch SETTINGS_FILE_PATH
     end
-    
+
+    require "yaml"
+
     def load
       File.open SETTINGS_FILE_PATH, "r" do |filebody|
         YAML::load(filebody) || SETTINGS_TEMPLATE
@@ -28,7 +30,7 @@ module Tweetskim
         filebody.write yml_str
       end
     end
-    
+
     def user_credentials_stored?
       if File.exists? SETTINGS_FILE_PATH
         settings = load
@@ -38,7 +40,7 @@ module Tweetskim
         false
       end
     end
-    
+
     def save_credentials(token, secret)
       settings = load
       settings[:token] = token
@@ -61,7 +63,7 @@ module Tweetskim
       settings[:last_read_status_id] = id
       save settings
     end
-    
+
   end
-  
+
 end
